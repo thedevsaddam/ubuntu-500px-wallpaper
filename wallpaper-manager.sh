@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# make a directory if not exist
+makeDir(){
+  DIRECTORY=/home/$USER/Pictures/ubuntu-500px-wallpaper
+  if [ ! -d "$DIRECTORY" ]; then
+    mkdir /home/$USER/Pictures/ubuntu-500px-wallpaper
+  fi
+}
+
+
 # download wallpaper from 500px rss feed
 downloadWallpaper(){
   # 500px popular feed url
@@ -10,13 +19,17 @@ downloadWallpaper(){
   curl -s "$FEED_URL"|grep "img"|awk -Fsrc'=\"' '{print $2}'|awk -F'"' '{print $1}'> storage.txt
 
   # getting the image url from index
-  IMG=`cat storage.txt|tail -n +$(awk -v min=1 -v max=10 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')|head -n 1`
+  IMG=`cat storage.txt|tail -n +$(awk -v min=1 -v max=20 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')|head -n 1`
+
+  # generate file unique id
+  FILE_UID=$(date +"%g-%m-%d-%H-%M-%S-%N")
 
   # getting image data from url
-  curl $IMG -o /home/$USER/Pictures/wallpaper.jpg
+  # curl  -O -J $IMG /home/$USER/Pictures/ubuntu-500px-wallpaper/
+  cd /home/$USER/Pictures/ubuntu-500px-wallpaper/ && { curl -O -J $IMG ; cd -; }
 
-  WIDTH=$(identify -format "%w"  /home/$USER/Pictures/wallpaper.jpg)
-  HEIGHT=$(identify -format "%h"  /home/$USER/Pictures/wallpaper.jpg)
+  WIDTH=$(identify -format "%w"  /home/$USER/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg)
+  HEIGHT=$(identify -format "%h"  /home/$USER/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg)
   if [ ! $HEIGHT -ge 600 ] && [ ! $WIDTH -ge 900 ]; then
     downloadWallpaper
     break
@@ -26,13 +39,13 @@ downloadWallpaper(){
 
 # set wallpaper
 setWallpaper(){
-  gsettings set org.gnome.desktop.background picture-uri file:///home//thedevsaddam//Pictures//wallpaper.jpg
+  gsettings set org.gnome.desktop.background picture-uri file:///home//thedevsaddam//Pictures//ubuntu-500px-wallpaper//wallpaper.jpg
 }
 
 
 # set default wallpaper
 setDefaultWallpaper(){
-  cp wallpaper.png /home/$USER/Pictures/wallpaper.jpg
+  cp wallpaper.png /home/$USER/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg
   setWallpaper
 }
 
