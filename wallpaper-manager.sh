@@ -8,6 +8,7 @@ makeDir(){
   fi
 }
 
+
 # download wallpaper from 500px rss feed
 downloadWallpaper(){
   # 500px popular feed url
@@ -19,6 +20,7 @@ downloadWallpaper(){
 
   # max line in storage file
   MAX=$(cat storage.txt | wc -l)
+
   # getting the image url from index
   IMG=`cat storage.txt|tail -n +$(awk -v min=1 -v max=$MAX 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')|head -n 1`
 
