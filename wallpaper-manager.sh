@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# download wallpaper from 500px rss feed
+downloadWallpaper(){
+  # 500px popular feed url
+  # https://support.500px.com/hc/en-us/articles/204910987-What-RSS-feeds-are-available-
+  FEED_URL="https://500px.com/popular.rss"
+
+  # fetch feed list from 500px and store in a text file
+  curl -s "$FEED_URL"|grep "img"|awk -Fsrc'=\"' '{print $2}'|awk -F'"' '{print $1}'> storage.txt
+
+  # getting the image url from index
+  IMG=`cat storage.txt|tail -n +$(awk -v min=1 -v max=10 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')|head -n 1`
+
+  # getting image data from url
+  curl $IMG -o /home/$USER/Pictures/wallpaper.jpg
+
+  WIDTH=$(identify -format "%w"  /home/$USER/Pictures/wallpaper.jpg)
+  HEIGHT=$(identify -format "%h"  /home/$USER/Pictures/wallpaper.jpg)
+  if [ ! $HEIGHT -ge 600 ] && [ ! $WIDTH -ge 900 ]; then
+    downloadWallpaper
+    break
+  fi
+
+}
+
+# set wallpaper
+setWallpaper(){
+  gsettings set org.gnome.desktop.background picture-uri file:///home//thedevsaddam//Pictures//wallpaper.jpg
+}
+
+
+# set default wallpaper
+setDefaultWallpaper(){
+  cp wallpaper.png /home/$USER/Pictures/wallpaper.jpg
+  setWallpaper
+}
+
+
+#download the last photo if internet connection is ok
+if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+  downloadWallpaper
+  setWallpaper
+else
+  # if no internet connection available then use default numix wallpaper
+  setDefaultWallpaper
+fi
