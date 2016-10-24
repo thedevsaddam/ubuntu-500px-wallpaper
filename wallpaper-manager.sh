@@ -13,10 +13,10 @@ makeDir(){
 downloadWallpaper(){
   # 500px popular feed url
   # https://support.500px.com/hc/en-us/articles/204910987-What-RSS-feeds-are-available-
-  FEED_URL="https://500px.com/popular.rss"
+  FEED_URL="https://500px.com/search.rss?q=hills-beach&type=photos&categories=Nature&sort=newest"
 
   # fetch feed list from 500px and store in a text file
-  curl -s "$FEED_URL"|grep "img"|awk -Fsrc'=\"' '{print $2}'|awk -F'"' '{print $1}'> storage.txt
+  curl -s "$FEED_URL"|grep "<media:content"|awk -Furl'=\"' '{print $2}'|awk -F'"' '{print $1}'> storage.txt
 
   # max line in storage file
   MAX=$(cat storage.txt | wc -l)
