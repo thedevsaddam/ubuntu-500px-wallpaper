@@ -12,6 +12,7 @@ copyToUserHome(){
   # install first time
   . ./wallpaper-manager.sh
 }
+# sudo update-rc.d writer.sh defaults
 
 
 # ask confiuration from USER
