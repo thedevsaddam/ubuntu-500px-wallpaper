@@ -4,7 +4,7 @@
 makeDir(){
   DIRECTORY=/home/$USER/Pictures/ubuntu-500px-wallpaper
   if [ ! -d "$DIRECTORY" ]; then
-    mkdir /home/$USER/Pictures/ubuntu-500px-wallpaper
+    mkdir DIRECTORY
   fi
 }
 
@@ -44,8 +44,7 @@ setWallpaper(){
 
 # set default wallpaper
 setDefaultWallpaper(){
-  [ ! -f /home/$USER/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg ] && cp wallpaper.jpg /home/$USER/Pictures/ubuntu-500px-wallpaper
-  setWallpaper
+  [ ! -f /home/$USER/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg ] && cp wallpaper.jpg /home/$USER/Pictures/ubuntu-500px-wallpaper && setWallpaper
 }
 
 #download the last photo if internet connection is ok

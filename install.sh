@@ -3,11 +3,22 @@
 # install scripts
 copyToUserHome(){
 
-  # copy the directory to home as hidden directory
-  cp -r . /home/$USER/.ubuntu-500px-wallpaper/
+  # make a directory if not exist
+  DIRECTORY=/home/$USER/.ubuntu-500px-wallpaper
+  if [ ! -d "$DIRECTORY" ]; then
+    mkdir $DIRECTORY
+  fi
 
   # make the directory executable
   chmod +x /home/$USER/.ubuntu-500px-wallpaper/
+
+  # copy the directory to home as hidden directory
+  # cp -r . /home/$USER/.ubuntu-500px-wallpaper/
+
+  # copy essential files to home directory for future use
+  cp wallpaper-manager.sh $DIRECTORY/
+  cp storage.txt $DIRECTORY/
+  cp wallpaper.jpg $DIRECTORY/
 
   # install first time
   . ./wallpaper-manager.sh
@@ -22,24 +33,3 @@ case $yn in
     [Nn]* ) return 1; break;;
     * ) return 0;;
 esac
-
-# store multiple wallpaper (future...:p )
-
-# [ ! -f /home/$USER/Pictures/ubuntu-500px-wallpaper/.jpg ] && echo "Found" || echo "Not found"
-
-# search_dir=/home/$USER/Pictures/ubuntu-500px-wallpaper
-# for file in "$search_dir"/*
-# do
-#   echo "${file##*/}"
-# done
-#
-# fileUID() {
-#   date +"%g-%m-%d-%H-%M-%S-%N"
-# }
-# timestamp
-
-# setDefaultWallpaper(){
-#   [ ! -f /home/$USER/Pictures/ubuntu-500px-wallpaper/.jpg ] && cp wallpaper.png /home/$USER/Pictures/ubuntu-500px-wallpaper
-# }
-
-# setDefaultWallpaper
