@@ -35,7 +35,7 @@ copyToUserHome(){
   chmod +x /etc/init.d/ubutnu-500px-wallpaper-init
 
   # register the init file
-  sudo update-rc.d tomcat defaults
+  update-rc.d tomcat defaults
 
   # install first time
   . ./wallpaper-manager.sh
