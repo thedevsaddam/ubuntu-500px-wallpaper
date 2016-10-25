@@ -1,14 +1,5 @@
 #!/bin/sh
 
-# make a directory if not exist
-makeDir(){
-  DIRECTORY=/home/$USER/Pictures/ubuntu-500px-wallpaper
-  if [ ! -d "$DIRECTORY" ]; then
-    mkdir DIRECTORY
-  fi
-}
-
-
 # download wallpaper from 500px rss feed
 downloadWallpaper(){
   # 500px popular feed url
@@ -49,7 +40,6 @@ setDefaultWallpaper(){
 
 #download the last photo if internet connection is ok
 if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
-  makeDir
   downloadWallpaper
   setWallpaper
 else

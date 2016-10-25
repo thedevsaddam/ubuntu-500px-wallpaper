@@ -20,6 +20,12 @@ copyToUserHome(){
   cp storage.txt $DIRECTORY/
   cp wallpaper.jpg $DIRECTORY/
 
+  # create wallpaper directory
+  WALLPAPER_DIR=/home/$USER/Pictures/ubuntu-500px-wallpaper
+  if [ ! -d "$WALLPAPER_DIR" ]; then
+    mkdir $WALLPAPER_DIR
+    chmod +x $WALLPAPER_DIR
+  fi
   # install first time
   . ./wallpaper-manager.sh
 }
