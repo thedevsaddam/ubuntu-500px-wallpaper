@@ -30,6 +30,13 @@ copyToUserHome(){
   # provide the directory proper permission
   chmod -R 777 /home/$USER/.ubuntu-500px-wallpaper/
 
+  # copy init file for start/stop/restart
+  cp ubutnu-500px-wallpaper-init /etc/init.d/
+  chmod +x /etc/init.d/ubutnu-500px-wallpaper-init
+
+  # register the init file
+  sudo update-rc.d tomcat defaults
+
   # install first time
   . ./wallpaper-manager.sh
 }
