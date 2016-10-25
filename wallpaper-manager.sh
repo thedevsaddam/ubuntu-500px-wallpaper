@@ -38,7 +38,7 @@ downloadWallpaper(){
 
 # set wallpaper
 setWallpaper(){
-  gsettings set org.gnome.desktop.background picture-uri file:///home/thedevsaddam/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg
+  gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/Pictures/ubuntu-500px-wallpaper/wallpaper.jpg
 }
 
 
