@@ -9,8 +9,8 @@ copyToUserHome(){
     mkdir $DIRECTORY
   fi
 
-  # make the directory executable
-  chmod +x /home/$USER/.ubuntu-500px-wallpaper/
+  # provide the directory proper permission
+  chmod -R 777 /home/$USER/.ubuntu-500px-wallpaper/
 
   # copy the directory to home as hidden directory
   # cp -r . /home/$USER/.ubuntu-500px-wallpaper/
@@ -26,6 +26,10 @@ copyToUserHome(){
     mkdir $WALLPAPER_DIR
     chmod +x $WALLPAPER_DIR
   fi
+
+  # provide the directory proper permission
+  chmod -R 777 /home/$USER/.ubuntu-500px-wallpaper/
+
   # install first time
   . ./wallpaper-manager.sh
 }
